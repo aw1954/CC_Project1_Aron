@@ -19,7 +19,6 @@ var r = 0;
 var g = 0;
 var b = 0;
 var backgroundOpacity = 0;
-var redHeart = 0;
 let prickles = [];
 let icicles = [];
 
@@ -212,47 +211,38 @@ function shutterSpeed (){
 			}
 		}
 		
-		if (millis() > 24000) {
+		if (millis() > 23500) {
 		  darken();
 		}
 		
 		if (millis() > 24000) {
-			heart();
-		  heartUp();
+			redHeart();
 		}
 		
 		if (millis() > 24050) {
-		  heartDown();
+			blackHeart();
 		}
 		
 		if (millis() > 24100) {
-		  heartUp();
+			redHeart();
 		}
 		
-		if (millis() > 24125) {
-		  heartDown();
+		if (millis() > 24150) {
+			blackHeart();
 		}
 		
-		if (millis() > 24140) {
-		  heartUp();
-		}
-		}
-		
-		if (millis() > 24155) {
-		  heartDown();
+		if (millis() > 24200) {
+			redHeart();
 		}
 		
-		if (millis() > 24160) {
-		  heartUp();
-		}
-		
-		if (millis() > 24165) {
-		  heartDown();
+		if (millis() > 24250) {
+			blackHeart();
 		}
 		
 	if (index > 2){
 	 index = 3;
 	}
+}
 }
 
 function mousePressed(){
@@ -299,53 +289,34 @@ function darken(){
 	}
 }
 
-function heart(){
-	fill(redHeart,0,0);
+function redHeart(){
+	fill(255,0,0);
 	ellipse(width/2,height/2,70,70);
-  filter(BLUR, 5);
+ // filter(BLUR, 5);
 }
 
-function heartUp(){
-	redHeart = 255;
+function blackHeart(){
+	fill(0,0,0);
+	ellipse(width/2,height/2,80,80);
 }
 
-function heartDown(){
-	redHeart = 0;
-}
-
-/*
-function heartUp(){
-	heart();
-	if(redHeart < 255){
-		redHeart = redHeart + 63;
-	}
-}
-
-function heartDown(){
-	heart();
-	if(redHeart > 0){
-		redHeart = redHeart - 63;
-	}
-}
-*/
-
-class Prickle {
-	constructor(x,y,w,h){
+class Prickle { //class for red dots
+	constructor(x,y,w,h){ //constructors for the dots
 		this.x = x;
 		this.y = y;
 		this.w = w;
-		this.h = h;
+		this.h = h; 
 	}
 	
-	display(){
-		fill(173,16,47);
+	display(){ //show circle
+		fill(173,16,47); //make it red
 		noStroke();
 		ellipse(this.x,this.y,this.w,this.h);
 	}
 }
 
-class Icicle {
-	constructor(x1,y1,x2,y2,x3,y3){
+class Icicle { //class for blue icicles
+	constructor(x1,y1,x2,y2,x3,y3){ //constructors to make the triangles
 		this.x1 = x1;
 		this.x2 = x2;
 		this.x3 = x3;
@@ -354,16 +325,16 @@ class Icicle {
 		this.y3 = y3;
 	}
 	
-	display(){
-		fill(0,255,255,150);
+	display(){ //show triangle
+		fill(0,255,255,150); //blue + transparent
 		noStroke();
 		triangle(this.x1,this.y1,this.x2,this.y2,this.x3,this.y3);
 	}
 	
-	grow(){
-		var icicleHeight = random(-400,0);
-		if(this.y3 < 1500){
-			this.y3 = this.y3 + 1;
+	grow(){ //extend downwards
+		var icicleHeight = random(-400,0); //randomly generated except backwards (-)
+		if(this.y3 < 1500){ 					//(out of canvas) so that they come in unevenly
+			this.y3 = this.y3 + 1; //this pulls the y of the tip out so that it "grows"
 		}
 	}
 }
