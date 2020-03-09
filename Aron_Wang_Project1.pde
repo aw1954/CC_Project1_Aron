@@ -328,3 +328,42 @@ function heartDown(){
 	}
 }
 */
+
+class Prickle {
+	constructor(x,y,w,h){
+		this.x = x;
+		this.y = y;
+		this.w = w;
+		this.h = h;
+	}
+	
+	display(){
+		fill(173,16,47);
+		noStroke();
+		ellipse(this.x,this.y,this.w,this.h);
+	}
+}
+
+class Icicle {
+	constructor(x1,y1,x2,y2,x3,y3){
+		this.x1 = x1;
+		this.x2 = x2;
+		this.x3 = x3;
+		this.y1 = y1;
+		this.y2 = y2;
+		this.y3 = y3;
+	}
+	
+	display(){
+		fill(0,255,255,150);
+		noStroke();
+		triangle(this.x1,this.y1,this.x2,this.y2,this.x3,this.y3);
+	}
+	
+	grow(){
+		var icicleHeight = random(-400,0);
+		if(this.y3 < 1500){
+			this.y3 = this.y3 + 1;
+		}
+	}
+}
